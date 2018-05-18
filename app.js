@@ -12,6 +12,7 @@ const flashLocals = require('./src/middleware/flash');
 
 const passport = require('passport');
 const auth0 = require('./src/auth0');
+const authenticate = require('./src/middleware/auth');
 passport.use(auth0);
 
 var indexRouter = require('./routes/index');
@@ -43,8 +44,8 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
-app.use('/users', usersRouter);
-app.use('/payment', paymentRouter);
+app.use('/user', authenticate, usersRouter);
+app.use('/payment', authenticate, paymentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
