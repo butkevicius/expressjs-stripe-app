@@ -1,0 +1,39 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Amount (cents)</th>
+        <th>Currency</th>
+        <th>Captured</th>
+        <th>Status</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ charge.id }}</td>
+        <td>{{ charge.amount }}</td>
+        <td>{{ charge.currency|upper }}</td>
+        <td>{{ charge.captured }}</td>
+        <td>{{ charge.status }}</td>
+        <td>
+          <form method="post" action="/payment/capture">
+            <button type="submit" class="btn btn-success">Capture <span class="badge badge-light">{{ charge.amount / 100 }} {{ charge.currency|upper }}</span></button>
+          </form>
+        </td>
+        <td>
+          <form method="post" action="/payment/refund">
+            <button type="submit" class="btn btn-danger">Refund</button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+{% endblock %}
